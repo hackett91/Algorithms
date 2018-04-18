@@ -14,11 +14,20 @@ public class Heap{
 
       heap[size] = value;
 
-      fixHeapAbove(size);
+      siftUp(size);
       size++;
     }
 
-    public int delete(int index){
+    public int peek(){
+      if(isEmpty()){
+        throw new IndexOutOfBoundsException("Heap is Empty");
+      }
+
+      return heap[0];
+
+    }
+
+    public int remove(int index){
       if(isEmpty()){
         throw new IndexOutOfBoundsException("Heap is Empty");
       }
@@ -29,11 +38,11 @@ public class Heap{
       heap[index] = heap[size-1];
 
       if(index == 0 || heap[index] < heap[parent]){
-        fixHeapBelow(index, size - 1);
+        siftDown(index, size - 1);
       }
       else
       {
-        fixHeapAbove(index);
+        siftUp(index);
       }
       size--;
 
@@ -41,7 +50,7 @@ public class Heap{
 
     }
 
-    private void fixHeapBelow(int index, int lastHeapIndex){
+    private void siftDown(int index, int lastHeapIndex){
       int childToSwap;
 
       while(index<= lastHeapIndex){
@@ -84,7 +93,7 @@ public class Heap{
         System.out.println();
     }
     //sifting up till greater than parent or at root
-    private void fixHeapAbove(int index){
+    private void siftUp(int index){
       //new value entered
       int newValue = heap[index];
       //is index of new value  index greater than root
