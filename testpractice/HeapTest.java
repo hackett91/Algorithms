@@ -44,8 +44,8 @@ class Heap
 
         int v = a[k]; //
 
-      a[0] = 0;
-      dist[0] = Integer.MIN_VALUE;
+        a[0] = 0;
+        dist[0] = Integer.MIN_VALUE;
 
        while( dist[v] < dist[ a[k/2]]) { // if element above it is greater
           a[k] = a[k/2];  // save smaller elms into greater one
@@ -91,7 +91,7 @@ class Heap
     {
         a[++N] = x;
         //hPos[x] = N;
-        siftUp( N);
+        siftUp(N);
     }
 
 
@@ -126,21 +126,28 @@ class Heap
 public class HeapTest {
     public static void main(String[] args) throws IOException
     {
+        //distance array
         int d[] = {0, 100, 70, 120, 20, 60 , 50, 130, 90, 60, 11, 154, 43, 114, 52, 76};
+        //variables
         int i, u;
         double x;
+        //heap position array
         int heapPos[] = new int[16];
 
+        // a heap which takes 3 parameters size
         Heap h = new Heap(15, d, heapPos);
-        
-        h.insert(1);
 
-        for(i = 0; i < 10; ++i) {
-            // pick a heap random value between 1 and 15 and
-            // insert into heap if not already there
+        h.insert(1);
+        h.display();
+
+        for(i = 0; i < 10; ++i)
+        {
+            // pick a heap random value between 1 and 15
             x = Math.random()*15.0;
             u = (int) x + 1;
-            if(heapPos[u] == 0){
+            // insert into heap if not already there
+            if(heapPos[u] == 0)
+            {
                 h.insert(u);
             }
         }
