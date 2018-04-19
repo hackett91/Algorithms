@@ -1,34 +1,35 @@
 public class SimpleHashtable{
 
-    private Employee[] hashtable;
+    private Student[] hashtable;
 
     public SimpleHashtable(){
-      hashtable = new Employee[10];
+      hashtable = new Student[10];
     }
-    public void put(String key, Employee employee){
+    public void put(int key, Student student){
       int hashedKey = hashKey(key);
       if(hashtable[hashedKey] != null)
       {
-        System.out.println("Sorry, there is alredy an emloey at the postion" + hashedKey);
+        System.out.println("Sorry, there is alredy an emloey at the postion " + hashedKey);
       }
-      else{
-        hashTable[hashedKey] = employee;
+      else
+      {
+        hashtable[hashedKey] = student;
       }
     }
 
     //retrieval is constant time
-    public Employee get(String key){
+    public Student get( int key){
       int hashedKey = hashKey(key);
       return hashtable[hashedKey];
     }
 
-    private int hashKey(String key){
-      return key.length() % hashtable.length;
+    private int hashKey(int key){
+      return key % hashtable.length;
     }
 
     public void printHashTable(){
       for(int i =0; i < hashtable.length; i++){
-        System.out.println(hashTable[i]);
+        System.out.println(hashtable[i]);
       }
     }
 }
