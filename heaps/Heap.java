@@ -53,7 +53,7 @@ public class Heap{
     private void siftDown(int index, int lastHeapIndex){
       int childToSwap;
 
-      while(index<= lastHeapIndex){
+      while(index <= lastHeapIndex){
         int leftChild = getChild(index,true);
         int rightChild = getChild(index,false);
         //check to see if have children

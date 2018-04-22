@@ -6,6 +6,8 @@ public class Main {
 
       Heap heap = new Heap(10);
 
+      
+
       heap.insert(80);
       heap.insert(75);
       heap.insert(68);
