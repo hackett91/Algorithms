@@ -1,9 +1,9 @@
 public class SimpleHashTable{
 
-    private Employee[] hashtable;
+    private StoredEmployee[] hashtable;
 
     public SimpleHashTable(){
-        hashtable = new Employee[10];
+        hashtable = new StoredEmployee[10];
     }
 
 
@@ -35,21 +35,45 @@ public class SimpleHashTable{
             System.out.println("sorry, there's already an employee at position" + hashedKey);
         }
         else{
-            hashtable[hashedKey] = employee;
+            hashtable[hashedKey] = new StoredEmployee(key, employee);
         }
     }
 
-    public Employee get(String key){
-        int hashedKey = hashKey(key);
+    private int findKey(String key){
+      int hashedKey = hashKey(key);
+      if(hashtable[hashedKey] != null && hashtable[hashedKey].key.equals(key)){
+          return hashedKey;
+      }
 
-        if(hashtable[hashedKey] != null){
-          return hashtable[hashedKey];
+      //check if hashed key is occupied
+      int stopIndex = hashedKey;
+      //if the position we just checked is that last position in the array we loop
+      if(hashedKey == hashtable.length -1){
+          hashedKey = 0;
+      }//otherwise just increment
+      else{
+          hashedKey++;
+      }
+      while(hashedKey != stopIndex && hashtable[hashedKey] != null &&
+          !hashtable[hashedKey].key.equals(key)){
+          hashedKey = (hashedKey + 1) % hashtable.length;
+      }
+      if(stopIndex == hashedKey){
+        return -1;
+      }
+      else{
+        return hashedKey;
+      }
+    }
+
+    public Employee get(String key){
+        int hashedKey = findKey(key);
+        if(hashedKey == -1){
+          return null;
         }
         else{
-            System.out.println("Sorry, couldn't find anything");
-            return null;
+          return hashtable[hashedKey].employee;
         }
-
     }
 
     //taking a key and hashing it to an int
