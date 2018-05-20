@@ -15,7 +15,7 @@ public class Main{
     ht.put("Wilson", mikeWilson);
     ht.put("Smith", marySmith);
 
-  //  ht.printHashtable();
+   ht.printHashtable();
 
     System.out.println("Retrieve key Wilson: " + ht.get("Wilson"));
   }

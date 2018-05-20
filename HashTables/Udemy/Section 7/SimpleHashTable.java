@@ -6,13 +6,33 @@ public class SimpleHashTable{
         hashtable = new Employee[10];
     }
 
+
+    // To handle collisions we use open addressing
+    // if we have someone already in the position in the array we look for another position
+    // we are going to use linear probing + if it is taking already we increment the hashed value by one
+    //
     public void put(String key, Employee employee){
         //map the key provided to an integer
         int hashedKey = hashKey(key);
+        //check if hashed key is occupied
+        if(occupied(hashedKey)){
+            int stopIndex = hashedKey;
+            //if the position we just checked is that last position in the array we loop
+            if(hashedKey == hashtable.length -1){
+                hashedKey = 0;
+            }//otherwise just increment
+            else{
+                hashedKey++;
+            }
+            while(occupied(hashedKey) && hashedKey != stopIndex){
+                hashedKey = (hashedKey + 1) % hashtable.length;
+            }
+
+        }
         //we check that position in the array is empty we assign the employee into that possition
         // otherwise we throw a message saying can't insert etc
-        if(hashtable[hashedKey] != null){
-            System.out.println("sorry, there's already an employee at position");
+        if(occupied(hashedKey)){
+            System.out.println("sorry, there's already an employee at position" + hashedKey);
         }
         else{
             hashtable[hashedKey] = employee;
@@ -35,6 +55,10 @@ public class SimpleHashTable{
     //taking a key and hashing it to an int
     private int hashKey(String key){
         return key.length() % hashtable.length;
+    }
+
+    private boolean occupied(int index){
+      return hashtable[index] != null;
     }
 
     public void printHashtable(){
