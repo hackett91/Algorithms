@@ -58,11 +58,13 @@ public class SimpleHashTable{
           !hashtable[hashedKey].key.equals(key)){
           hashedKey = (hashedKey + 1) % hashtable.length;
       }
-      if(stopIndex == hashedKey){
-        return -1;
+
+      if(hashtable[hashedKey] != null &&
+          hashtable[hashedKey].key.equals(key)){
+            return hashedKey;
       }
       else{
-        return hashedKey;
+          return -1;
       }
     }
 
@@ -74,6 +76,17 @@ public class SimpleHashTable{
         else{
           return hashtable[hashedKey].employee;
         }
+    }
+
+    public Employee remove(String key){
+      int hashedKey = findKey(key);
+
+      if(hashedKey == -1){
+        return null;
+      }
+      Employee employee = hashtable[hashedKey].employee;
+      hashtable[hashedKey] = null;
+      return employee;
     }
 
     //taking a key and hashing it to an int
